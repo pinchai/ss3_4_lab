@@ -9,6 +9,7 @@
          style="border-radius: 5px;
                 position: sticky; top: 0; z-index: 100; background-color: whitesmoke"
     >
+        <h1>{{ filter_category }}</h1>
         {% for item in category %}
             <button
                     class="btn btn-outline-primary ml-1 mr-1"
@@ -35,8 +36,9 @@
                                 <span class="discount mt-1">-{{ item.discount }}%</span>
                             </div>
                         </div>
-                        <img src="/static/image/sting.jpeg"
-                             class="img-fluid rounded thumbnail-image">
+                        <a href="/product_detail/{{ item.name }}/{{ item.category_name }}/{{ item.price }}/{{ 'sting.jpeg' }}" target="_blank">
+                           <img src="/static/image/sting.jpeg" class="img-fluid rounded thumbnail-image">
+                        </a>
                     </div>
                     <div class="product-detail-container p-2">
                         <div class="d-flex justify-content-between align-items-center">

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 import randomname
 
@@ -6,7 +6,9 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+@app.route('/home')
+def home():
+    filter_category = request.args.get('filter_category', default="all", type=str)
     category = []
     products = []
 
@@ -18,7 +20,6 @@ def hello_world():
             'discount': 40,
             'category_name': 'drink',
         })
-
     for item in range(5):
         category.append(
             {
@@ -26,7 +27,8 @@ def hello_world():
                 'name': randomname.get_name(noun=('gaming')),
             },
         )
-    return render_template('index.html', products=products, category=category)
+
+    return render_template('index.html', products=products, category=category, filter_category=filter_category)
 
 
 @app.route('/pos')
@@ -49,6 +51,12 @@ def pos_index():
             'category_name': 'drink',
         })
     return render_template('pos_screen.html', rows=rows)
+
+
+@app.route('/product_detail/<string:name>/<string:category>/<string:price>/<string:image>')
+def product_detail(name, category, price, image):
+
+    return render_template('product_detail.html', name=name, category=category, price=price, image=image)
 
 
 if __name__ == '__main__':
