@@ -9,15 +9,25 @@
          style="border-radius: 5px;
                 position: sticky; top: 0; z-index: 100; background-color: whitesmoke"
     >
-        <h1>{{ filter_category }}</h1>
-        {% for item in category %}
+        <a href="{{ url_for('home') }}?filter_category=all">
             <button
-                    class="btn btn-outline-primary ml-1 mr-1"
+                    class="btn btn-outline-primary ml-1 mr-1 {% if filter_category == 'all' %} active {% endif %}"
                     type="submit"
                     style="text-transform: uppercase"
             >
-               {{ loop.index }}. {{ item.name }}
+                all
             </button>
+        </a>
+        {% for item in category %}
+            <a href="{{ url_for('home') }}?filter_category={{ item.name }}">
+                <button
+                        class="btn btn-outline-primary ml-1 mr-1 {% if filter_category == item.name %} active {% endif %}"
+                        type="submit"
+                        style="text-transform: uppercase"
+                >
+                    {{ loop.index }}. {{ item.name }}
+                </button>
+            </a>
         {% endfor %}
 
     </div>
@@ -36,8 +46,9 @@
                                 <span class="discount mt-1">-{{ item.discount }}%</span>
                             </div>
                         </div>
-                        <a href="/product_detail/{{ item.name }}/{{ item.category_name }}/{{ item.price }}/{{ 'sting.jpeg' }}" target="_blank">
-                           <img src="/static/image/sting.jpeg" class="img-fluid rounded thumbnail-image">
+                        <a href="/product_detail/{{ item.name }}/{{ item.category_name }}/{{ item.price }}/{{ 'sting.jpeg' }}"
+                           target="_blank">
+                            <img src="/static/image/sting.jpeg" class="img-fluid rounded thumbnail-image">
                         </a>
                     </div>
                     <div class="product-detail-container p-2">

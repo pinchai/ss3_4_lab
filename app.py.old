@@ -1,0 +1,82 @@
+from dataclasses import dataclass
+
+from flask import Flask, render_template, jsonify, json
+from flask_sqlalchemy import SQLAlchemy
+import sqlite3
+
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+db = SQLAlchemy(app)
+
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, unique=False, nullable=False)
+
+
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    category_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, unique=False, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    discount = db.Column(db.Float, nullable=False)
+    image = db.Column(db.String, nullable=False)
+
+
+@app.route('/')
+@app.route('/home')
+def hello_world():
+
+    # product = Product.query.all()
+    # product_json = []
+    # for item in product:
+    #     product_json.append({
+    #         'id': item.id,
+    #         'name': item.name,
+    #         'price': item.price,
+    #         'discount': item.discount,
+    #         'image': item.image,
+    #         'concat': f"{item.name} - {item.price}",
+    #     })
+    #
+    # return jsonify(product_json)
+
+    con = sqlite3.connect('instance/database.db')
+    con.row_factory = sqlite3.Row
+
+    cur_product = con.cursor()
+    cur_product.execute(
+        "SELECT product.*, category.name as 'category_name' "
+        "FROM product INNER JOIN category ON product.category_id = category.id "
+        "limit 12"
+    )
+    rows = cur_product.fetchall()
+
+    cur_category = con.cursor()
+    cur_category.execute("select * from category limit 5")
+    categories = cur_category.fetchall()
+
+    con.close()
+    # return render_template('index.html', rows=rows, categories=categories)
+    product_json = []
+    count = 1
+    for item in rows:
+        product_json.append({
+            'name': item[2]
+        })
+    return product_json
+
+
+# conn.execute('CREATE TABLE students (name TEXT, addr TEXT, city TEXT, pin TEXT)')
+# print("Table created successfully");
+# conn.close()
+
+
+with app.app_context():
+    db.create_all()
+
+if __name__ == '__main__':
+    app.run()
+
+
+
