@@ -18,10 +18,11 @@
                 all
             </button>
         </a>
+    
         {% for item in category %}
             <a href="{{ url_for('home') }}?filter_category={{ item.name }}">
                 <button
-                        class="btn btn-outline-primary ml-1 mr-1 {% if filter_category == item.name %} active {% endif %}"
+                        class="btn btn-outline-primary ml-1 mr-1 {% if filter_category ==  item.name %} active {% endif %}"
                         type="submit"
                         style="text-transform: uppercase"
                 >
@@ -47,7 +48,7 @@
                             </div>
                         </div>
                         <a href="/product_detail/{{ item.name }}/{{ item.category_name }}/{{ item.price }}/{{ 'sting.jpeg' }}"
-                           target="_blank">
+                           target="_self">
                             <img src="/static/image/sting.jpeg" class="img-fluid rounded thumbnail-image">
                         </a>
                     </div>

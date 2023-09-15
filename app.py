@@ -13,7 +13,7 @@ def home():
     products = []
     categories = [
         {
-            "id": 1,
+            'id': 1,
             'name': 'drink'
         },
         {
@@ -22,39 +22,34 @@ def home():
         },
         {
             'id': 3,
-            'name': 'beer'
-        },
-        {
-            'id': 4,
             'name': 'fast food'
         },
         {
-            'id': 5,
-            'name': 'coffee'
+            'id': 4,
+            'name': 'beer'
         },
         {
-            'id': 6,
-            'name': 'tea'
-        },
+            'id': 5,
+            'name': 'cafe'
+        }
     ]
-
     for item in range(12):
         category = random.choice(categories)
         products.append({
             'id': 1,
             'name': randomname.get_name(noun=('food')),
-            'price': random.randint(1, 1000),
-            'discount': random.randint(1, 100),
+            'price': 10,
+            'discount': 30,
             'category_name': category['name'],
         })
 
-    product_filter = []
+    product_filter = [];
     if filter_category == 'all' or filter_category == '':
         product_filter = products
     else:
-        for pro_item in products:
-            if pro_item['category_name'] == filter_category:
-                product_filter.append(pro_item)
+        for product_found in products:
+            if product_found['category_name'] == filter_category:
+                product_filter.append(product_found)
 
     return render_template(
         'index.html',
@@ -84,6 +79,11 @@ def pos_index():
             'category_name': 'drink',
         })
     return render_template('pos_screen.html', rows=rows)
+
+
+@app.route('/admin')
+def admin():
+    return render_template('admin/index.html')
 
 
 @app.route('/product_detail/<string:name>/<string:category>/<string:price>/<string:image>')
