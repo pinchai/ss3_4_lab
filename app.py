@@ -1,9 +1,14 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import random
+import sqlite3 as sql
 
 import randomname
 
 app = Flask(__name__)
+
+# conn = sqlite3.connect('ss34_database.db')
+# conn.execute('CREATE TABLE students (name TEXT, addr TEXT, city TEXT, pin TEXT)')
+# conn.close()
 
 
 @app.route('/')
@@ -83,7 +88,35 @@ def pos_index():
 
 @app.route('/admin')
 def admin():
-    return render_template('admin/index.html')
+
+    con = sql.connect("ss34_database.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("select * from students")
+    rows = cur.fetchall()
+
+    return render_template('admin/index.html', rows=rows)
+
+
+@app.route('/admin/add_student', methods=['POST'])
+def add_student():
+    if request.method == "POST":
+        try:
+            name = request.form['name']
+            gender = request.form['gender']
+            address = request.form['address']
+            phone = request.form['phone']
+
+            with sql.connect("ss34_database.db") as con:
+                cur = con.cursor()
+                cur.execute("INSERT INTO students (name,gender,address,phone) VALUES (?,?,?,?)",
+                            (name, gender, address, phone))
+                con.commit()
+                msg = "Record successfully added"
+                return redirect('/admin')
+        except:
+            con.rollback()
+            msg = "error in insert operation"
 
 
 @app.route('/product_detail/<string:name>/<string:category>/<string:price>/<string:image>')
