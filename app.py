@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 # conn = sqlite3.connect('ss34_database.db')
 # conn.execute('CREATE TABLE students (name TEXT, addr TEXT, city TEXT, pin TEXT)')
+##
 # conn.close()
 
 
