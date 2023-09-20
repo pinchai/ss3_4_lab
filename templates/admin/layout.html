@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Starter</title>
+    <title>{% block title %}{% endblock %}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -25,10 +25,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="{{ url_for('admin') }}" class="nav-link">Home</a>
             </li>
         </ul>
 
@@ -158,10 +155,10 @@
     <!--Sidebar-->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
+        <a href="{{ url_for('admin') }}" class="brand-link">
             <img src="../../static/admin/img/AdminLTELogo.png" alt="AdminLTE Logo"
                  class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">Mini Mart</span>
         </a>
 
         <!-- Sidebar -->
@@ -172,7 +169,7 @@
                     <img src="../../static/admin/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <a href="{{ url_for('admin') }}" class="d-block">SS..</a>
                 </div>
             </div>
 
@@ -184,7 +181,7 @@
                         data-accordion="false"
                 >
                     <li class="nav-item">
-                        <a href="#" class="nav-link active">
+                        <a href="{{ url_for('student') }}" class="nav-link {% if module_key == 'student' %}active{% endif %}">
                             <i class="nav-icon fas fa-walking"></i>
                             <p>
                                 Students
@@ -225,134 +222,7 @@
 
     <!-- main content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0" style="text-transform: uppercase">
-                            <i class="fas fa-walking"></i>
-                            Student
-                        </h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-5 col-3">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h5 class="m-0">Featured</h5>
-                            </div>
-                            <div class="card-body">
-                                <form action="{{ url_for('add_student') }}" method="POST">
-                                    {#--Name--#}
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Name</span>
-                                        </div>
-                                        <input
-                                                type="text"
-                                                class="form-control"
-                                                required
-                                                autocomplete="off"
-                                                name="name"
-                                        >
-                                    </div>
-                                    {#--Gender--#}
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Gender</span>
-                                        </div>
-                                        <select class="form-control" name="gender">
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                    </div>
-                                    {#--address--#}
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Address</span>
-                                        </div>
-                                        <input
-                                                type="text"
-                                                class="form-control"                                                 required
-                                                autocomplete="off"
-                                                name="address"
-                                        >
-                                    </div>
-                                    {#--phone--#}
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Phone Number</span>
-                                        </div>
-                                        <input type="text" class="form-control"  name="phone">
-                                    </div>
-
-                                    <input type="reset" class="btn btn-danger" value="Reset">
-                                    <input type="submit" class="btn btn-primary float-right" value="Save">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-7 col-9">
-                        <div class="table-responsive">
-                            <table class="table table-sm table-borderless table-striped">
-                                <thead>
-                                <tr class="bg-secondary">
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Gender</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for item in rows %}
-                                    <tr>
-                                        <td>
-                                            <img
-                                                    src="/static/image/sting.jpeg"
-                                                    class="rounded float-left"
-                                                    alt=""
-                                                    style="width: 50px; width: 50px"
-                                            >
-                                        </td>
-                                        <td>{{ item.name }}</td>
-                                        <td>Male</td>
-                                        <td>PP</td>
-                                        <td>099774967</td>
-                                        <td>
-                                            <button
-                                                    type="button"
-                                                    class="btn btn-outline-warning"
-                                            >
-                                                <i class="far fa-edit"></i>
-                                                Edit
-                                            </button>
-                                            <button
-                                                    type="button"
-                                                    class="btn btn-outline-danger"
-                                            >
-                                                <i class="far fa-trash-alt"></i>
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% block main_content %}{% endblock %}
     </div>
 
     <!-- Control Sidebar -->

@@ -9,7 +9,7 @@ app = Flask(__name__)
 # conn = sqlite3.connect('ss34_database.db')
 # conn.execute('CREATE TABLE students (name TEXT, addr TEXT, city TEXT, pin TEXT)')
 # conn.close()
-
+module_key = 'dashboard'
 
 @app.route('/')
 @app.route('/home')
@@ -88,14 +88,17 @@ def pos_index():
 
 @app.route('/admin')
 def admin():
+    return render_template('admin/dashboad.html', module_key='dashboard')
 
+
+@app.route('/admin/student')
+def student():
     con = sql.connect("ss34_database.db")
     con.row_factory = sql.Row
     cur = con.cursor()
     cur.execute("select * from students")
     rows = cur.fetchall()
-
-    return render_template('admin/index.html', rows=rows)
+    return render_template('admin/student.html', module_key='student', rows=rows)
 
 
 @app.route('/admin/add_student', methods=['POST'])
