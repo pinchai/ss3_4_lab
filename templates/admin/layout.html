@@ -25,7 +25,19 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+                <a href="{{ url_for('home') }}" target="_blank" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+            </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                <a
+                        href="{{ url_for('pos_index') }}"
+                        target="_blank"
+                   class="nav-link">
+                    <i class="fas fa-cash-register"></i>
+                    POS
+                </a>
             </li>
         </ul>
 
@@ -171,7 +183,7 @@
                         data-accordion="false"
                 >
                     <li class="nav-item">
-                        <a href="#"
+                        <a href="{{ url_for('student') }}"
                            class="nav-link active">
                             <i class="nav-icon fas fa-walking"></i>
                             <p>
