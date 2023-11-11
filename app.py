@@ -1,16 +1,16 @@
 from flask import Flask, render_template, request, redirect
-import random
+from sqlalchemy import create_engine, text
 import sqlite3 as sql
-
-import randomname
 
 app = Flask(__name__)
 
-# conn = sqlite3.connect('ss34_database.db')
-# conn.execute('CREATE TABLE students (name TEXT, addr TEXT, city TEXT, pin TEXT)')
-# conn.close()
+# Connect to the database
+engine = create_engine("mysql+mysqlconnector://root:mysql@localhost/ss34_pos")
+# Test the connection
+connection = engine.connect()
 
 import routes
+
 
 @app.route('/admin')
 def admin():
