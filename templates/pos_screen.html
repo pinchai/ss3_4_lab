@@ -32,11 +32,10 @@
                 </a>
                 <marquee>
                 <span class="brand-text font-weight-light" style="font-family: Moul;font-size: 20px;color: white">
-                    បន្ទប់ពិគ្រោះ និង ព្យាបាលជំងឺ
+                    អ៊ុីឌឿងលក់ចាប់ហួយ
                 </span>
                     <span class="brand-text font-weight-light" style="font-size: 15px;color: white">
-                    : ពិនិត្យជំងឺទូទៅ មនុស្សចាស់ កុមារ រោគស្ត្រី និង
-                    វះកាត់តូច មានទទួលពិនិត្យ អេកូរពណ៍ ចាក់វ៉ាក់សាំងមហារីកស្បូន ថ្លើមបេ តេតាណុស ឆ្កែខាំ
+                        ដបទឹកទើបចូលស្តុកថ្មី! ដបទឹកម៉ូតថ្មីស្អាតៗ ធន់ងាយស្រួលដាក់តាមខ្លួនរក្សាកំដៅ នឹងត្រជាក់បានយូម៉ោង 🥰🥰
                 </span>
                 </marquee>
             </div>
@@ -61,20 +60,20 @@
                     <div class="row mt-1" style="max-height: 85vh; overflow: scroll">
                         <div
                                 v-for="item in this.product_list"
-                                class="col-lg-3 col-md-2 col-sm-3 col-3 mb-3 mt-3"
+                                class="col-lg-2 col-md-6 col-sm-6 col-3 mb-3 mt-3"
                         >
                             <div
+                                    style="width: 150px"
                                     class="card"
                                     @click="selectedItem(item)"
                             >
                                 <div class="image-container">
                                     <div class="first">
                                         <div class="d-flex justify-content-between align-items-end">
-                                            <span class="discount bg-success">item.category_name</span>
-                                            <span class="wishlist"><i class="fa fa-heart-o"></i></span>
+                                            <span class="discount bg-success">category</span>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <span class="discount mt-1">-item.discount%</span>
+                                            <span class="discount mt-1">-10%</span>
                                         </div>
                                     </div>
                                     <img src="/static/image/sting.jpeg"
@@ -84,19 +83,18 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5 class="dress-name">[[ item.name ]]</h5>
                                         <div class="d-flex flex-column mb-2">
-                                <span class="new-price text-dark">
-                                    0
-                                </span>
+                                            <span class="new-price text-dark">[[ item.price ]]$</span>
                                             <del class="old-price text-right"
                                                  style="font-size: 12px; background-color: yellow; color: firebrick"
                                             >
-                                                0
+                                                [[ item.price - (item.discount / 100 * item.price)  ]]
                                             </del>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center pt-1">
-                                        <div><i class="fa fa-star-o rating-star"></i> <span
-                                                class="rating-number">4.8</span>
+                                        <div>
+                                            <i class="fa fa-star-o rating-star"></i>
+                                            <span class="rating-number">4.8</span>
                                         </div>
                                         <span class="buy">BUY +</span>
                                     </div>
@@ -191,6 +189,7 @@
                             'qty': 1,
                             'price': item.price,
                             'discount': 0,
+                            'image': item.image,
                         }
                     )
                 } else {

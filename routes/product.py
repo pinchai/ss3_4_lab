@@ -13,8 +13,9 @@ def getAllProduct():
             {
                 'id': product.id,
                 'name': product.name,
-                'cost': product.cost,
+                'discount': product.discount,
                 'price': product.price,
+                'image': product.image,
             }
         )
 
