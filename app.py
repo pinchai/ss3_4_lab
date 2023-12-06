@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, Response
 from sqlalchemy import create_engine, text
 import sqlite3 as sql
 
