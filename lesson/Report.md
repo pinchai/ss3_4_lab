@@ -1,14 +1,12 @@
-from app import app, render_template, request, Response
-import randomname
+#Install
+````
+pip install pdfkit
+
 import pdfkit
-import os
-from datetime import datetime
+````
 
-@app.route('/pos')
-def pos_index():
-    return render_template('pos_screen.html')
-
-
+#Create route and mapping function
+````
 @app.route("/pdf")
 def index_pdf():
     path = os.getcwd() + '../pdf/invoice.pdf'
@@ -30,7 +28,7 @@ def index_pdf():
     html = render_template("invoice.html", data=data, now=created_at, server_url=server_url)
     options = {
         # 'page-size': 'a7',
-        'page-height': '10in',
+        'page-height': '7in',
         'page-width': '3in',
         'margin-top': '0.1in',
         'margin-right': '0in',
@@ -41,3 +39,6 @@ def index_pdf():
     pdf_preview = pdfkit.from_string(html, '', options)
 
     return Response(pdf_preview, mimetype="application/pdf")
+
+
+````
