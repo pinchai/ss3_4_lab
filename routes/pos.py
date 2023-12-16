@@ -1,7 +1,8 @@
-from app import app, render_template, request, Response
+from app import app, render_template, request, Response, connection, text
 import randomname
 import pdfkit
 import os
+import json
 from datetime import datetime
 
 @app.route('/pos')
@@ -41,3 +42,16 @@ def index_pdf():
     pdf_preview = pdfkit.from_string(html, '', options)
 
     return Response(pdf_preview, mimetype="application/pdf")
+
+
+@app.route('/pos/create_transaction', methods=['post'])
+def create_transaction():
+    total_price = request.form.get('total_price')
+    received_amount = request.form.get('received_amount')
+    selected_product = request.form.get('selected_product')
+
+    # insert sale transaction
+    result = connection.execute(text("INSERT INTO sale (date, customer_id) VALUES ('2023-12-16', 1)"))
+    sale_id = result.lastrowid
+    connection.commit()
+    return '12'

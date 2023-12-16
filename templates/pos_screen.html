@@ -283,6 +283,24 @@
                         text: "Something went wrong!",
                     });
                 } else {
+
+                    let input = {
+                        'total_price': this.total_price,
+                        'received_amount': this.received_amount,
+                        'selected_product': this.selected_product
+                    }
+                    let formData = new FormData
+                    formData.append('total_price', this.total_price)
+                    formData.append('received_amount', this.received_amount)
+                    formData.append('selected_product', JSON.stringify(this.selected_product))
+                    console.log(formData)
+                    axios.post('pos/create_transaction', formData).then(response => {
+                        console.log(response.data)
+                    }).catch(function (error) {
+                        alert('error: ' + error.message)
+                    });
+
+                    return
                     this.sound('success')
                     Swal.fire({
                         title: "Thank you !",
@@ -293,8 +311,6 @@
                     this.typingTimer = setTimeout(function () {
                         window.open("http://127.0.0.1:5000/pdf");
                     }, this.doneTypingInterval)
-
-
                 }
             },
             cancelPayment() {
